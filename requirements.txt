@@ -1,0 +1,7 @@
+# RAG-бот QuantumForge — зависимости.
+# torch на Windows ставить CPU-сборкой, чтобы не тянуть CUDA (~2.5 ГБ):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+langchain
+langchain-community
+faiss-cpu
+sentence-transformers
