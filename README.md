@@ -20,21 +20,39 @@ Python · LangChain · FAISS · Docker (Compose)
 - Ответы по каждому заданию фиксируются в [`Project_template.md`](./Project_template.md).
 - Сдача — pull request `rag → main`.
 
-## Сборка векторного индекса (Задание 3)
+## Установка
+
+Все команды — **из корня репозитория**. На чистой машине один раз ставим окружение
+(если `.venv` уже собран — шаг можно пропустить):
 
 ```bash
+cd YandexTestTask_Bot        # корень репозитория (куда клонировали)
+
 python -m venv .venv
-# Windows: torch — CPU-сборкой, чтобы не тянуть CUDA (~2.5 ГБ)
+# torch — CPU-сборкой, чтобы не тянуть CUDA (~2.5 ГБ)
 .venv/Scripts/pip install torch --index-url https://download.pytorch.org/whl/cpu
 .venv/Scripts/pip install -r requirements.txt
+```
 
-# собрать индекс (модель e5-small скачается при первом запуске) → index/
-.venv/Scripts/python scripts/build_index.py
+## Запуск бота (Задание 4)
 
-# поиск по индексу
+LLM — локальная `Qwen/Qwen2.5-1.5B-Instruct` (transformers, CPU); модели
+(`multilingual-e5-small` + Qwen) скачиваются при первом запуске. Индекс уже в
+репозитории (`index/`). Генерация на CPU — ~30–90 с на ответ.
+
+```bash
+cd YandexTestTask_Bot
+
+.venv/Scripts/python scripts/rag_bot.py                       # диалог (REPL), выход — exit
+.venv/Scripts/python scripts/rag_bot.py "Кто такой Горрук?"   # один вопрос
+.venv/Scripts/python scripts/rag_bot.py --demo                # демо: 4 ответа + 2 «Я не знаю»
+```
+
+## Пересборка индекса (Задание 3, не обязательно)
+
+```bash
+.venv/Scripts/python scripts/build_index.py                   # пересоберёт index/
 .venv/Scripts/python scripts/query_index.py "Кто такой Горрук?"
 ```
 
-## Запуск бота
-
-_Появится после сборки бота (Docker + FAISS)._
+Docker-упаковка (бот + FAISS) — следующим шагом.
