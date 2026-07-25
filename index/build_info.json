@@ -1,9 +1,9 @@
 {
   "model": "intfloat/multilingual-e5-small",
   "embedding_dim": 384,
-  "documents": 38,
-  "chunks": 197,
+  "documents": 39,
+  "chunks": 198,
   "chunk_size": 700,
   "chunk_overlap": 100,
-  "build_seconds": 14.2
+  "build_seconds": 12.0
 }
