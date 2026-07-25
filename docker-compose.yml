@@ -1,0 +1,19 @@
+# RAG-бот QuantumForge: один сервис (бот с встроенным FAISS-индексом).
+# Модели (e5-small + Qwen2.5-1.5B, ~3.5 ГБ) скачиваются при первом запуске в volume
+# hf-models и переиспользуются далее.
+#
+#   docker compose build                                          # собрать образ
+#   docker compose run --rm rag-bot                               # интерактивный REPL
+#   docker compose run --rm rag-bot python scripts/rag_bot.py --demo    # демо
+#   docker compose run --rm rag-bot python scripts/rag_bot.py --attack  # защита от инъекций
+services:
+  rag-bot:
+    build: .
+    image: quantumforge-rag-bot
+    stdin_open: true   # держим stdin открытым для REPL
+    tty: true
+    volumes:
+      - hf-models:/models
+
+volumes:
+  hf-models:
