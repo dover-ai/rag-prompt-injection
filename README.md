@@ -20,6 +20,21 @@ Python · LangChain · FAISS · Docker (Compose)
 - Ответы по каждому заданию фиксируются в [`Project_template.md`](./Project_template.md).
 - Сдача — pull request `rag → main`.
 
-## Запуск
+## Сборка векторного индекса (Задание 3)
 
-_Инструкция появится после сборки бота (Docker + FAISS)._
+```bash
+python -m venv .venv
+# Windows: torch — CPU-сборкой, чтобы не тянуть CUDA (~2.5 ГБ)
+.venv/Scripts/pip install torch --index-url https://download.pytorch.org/whl/cpu
+.venv/Scripts/pip install -r requirements.txt
+
+# собрать индекс (модель e5-small скачается при первом запуске) → index/
+.venv/Scripts/python scripts/build_index.py
+
+# поиск по индексу
+.venv/Scripts/python scripts/query_index.py "Кто такой Горрук?"
+```
+
+## Запуск бота
+
+_Появится после сборки бота (Docker + FAISS)._
