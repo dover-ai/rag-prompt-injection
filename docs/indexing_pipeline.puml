@@ -1,0 +1,42 @@
+@startuml
+title RAG-бот QuantumForge — конвейер индексации базы знаний (Задание 3)
+
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam rectangle {
+  BackgroundColor #F7F9FC
+  BorderColor #4C6EF5
+}
+skinparam database {
+  BackgroundColor #FFF4E6
+  BorderColor #E8590C
+}
+
+package "Сборка индекса — один раз (build_index.py)" #EEF3FF {
+  rectangle "knowledge_base/\n38 .md (рус., анонимизированные)" as KB
+  rectangle "Чанкинг\nRecursiveCharacterTextSplitter\n700 симв. · нахлёст 100" as SPLIT
+  rectangle "197 чанков\n+ метаданные: source · title · chunk_id" as CHUNKS
+  rectangle "Эмбеддинги\nmultilingual-e5-small · 384-dim\nпрефикс 'passage: '" as EMB
+  database "FAISS-индекс\nindex.faiss + index.pkl" as IDX
+  KB --> SPLIT
+  SPLIT --> CHUNKS
+  CHUNKS --> EMB
+  EMB --> IDX
+}
+
+package "Поиск — на каждый запрос (query_index.py)" #F3FFF3 {
+  rectangle "Запрос пользователя\n«Кто правит Гренноком?»" as Q
+  rectangle "Эмбеддинг запроса\nmultilingual-e5-small\nпрефикс 'query: '" as QEMB
+  rectangle "Поиск top-k\n(косинусная близость)" as SEARCH
+  rectangle "Найденные чанки\n+ источник (title, chunk_id)" as RES
+  Q --> QEMB
+  QEMB --> SEARCH
+  SEARCH --> RES
+}
+
+IDX ..> SEARCH : та же модель,\nто же пространство векторов
+note bottom of RES
+  LLM здесь НЕ участвует — только эмбеддинги.
+  Ответ по этим чанкам сформулирует LLM в Задании 4.
+end note
+@enduml

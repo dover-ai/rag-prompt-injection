@@ -11,10 +11,7 @@ __pycache__/
 .env.*
 !.env.example
 
-# Generated artifacts
-index/
-*.faiss
-*.pkl
+# FAISS-индекс (index/) — часть сдачи Задания 3, коммитим
 
 # Промежуточные данные (скрап + перевод) — не часть сдачи, финал в knowledge_base/
 data/
