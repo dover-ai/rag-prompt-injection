@@ -16,6 +16,9 @@ index/
 *.faiss
 *.pkl
 
+# Промежуточные данные (скрап + перевод) — не часть сдачи, финал в knowledge_base/
+data/
+
 # IDE / OS
 .idea/
 .vscode/
