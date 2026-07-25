@@ -26,7 +26,7 @@ Python · LangChain · FAISS · Docker (Compose)
 (если `.venv` уже собран — шаг можно пропустить):
 
 ```bash
-cd YandexTestTask_Bot        # корень репозитория (куда клонировали)
+cd ~/Projects/YandexTestTask_Bot   # корень репозитория (куда клонировали)
 
 python -m venv .venv
 # torch — CPU-сборкой, чтобы не тянуть CUDA (~2.5 ГБ)
@@ -41,7 +41,7 @@ LLM — локальная `Qwen/Qwen2.5-1.5B-Instruct` (transformers, CPU); м�
 репозитории (`index/`). Генерация на CPU — ~30–90 с на ответ.
 
 ```bash
-cd YandexTestTask_Bot
+cd ~/Projects/YandexTestTask_Bot   # корень репозитория (куда клонировали)
 
 .venv/Scripts/python scripts/rag_bot.py                       # диалог (REPL), выход — exit
 .venv/Scripts/python scripts/rag_bot.py "Кто такой Горрук?"   # один вопрос
