@@ -1,0 +1,24 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Secrets / config
+.env
+.env.*
+!.env.example
+
+# Generated artifacts
+index/
+*.faiss
+*.pkl
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
